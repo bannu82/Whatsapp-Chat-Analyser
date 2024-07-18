@@ -84,21 +84,33 @@ if uploaded_file is not None:
                 fig , ax = plt.subplots()
                 ax.barh(most_common_df[0]  , most_common_df[1])
                 st.pyplot(fig)
-                st.dataframe(most_common_df)
+                # st.dataframe(most_common_df)
             
             except KeyError as e:
                 st.error(e)                
 
 
-            # try:
-            
-            #     st.title('find messages')
-                
-            #     msg_df = helper.get_message(selected_user , df , w)
-            #     st.dataframe(msg_df,use_container_width=True)
+            # Emoji Counter
+            try:
+                st.title('Emoji Counter')
+                emoji_df = helper.emoji_counter(selected_user , df)
 
-            # except KeyError as e:
-            #     st.error(e)
+                col1 , col2 = st.columns(2)
+                with col1:
+                    fig , ax = plt.subplots()
+                    ax.pie( emoji_df[1].head(5) , labels=emoji_df[0].head(5), autopct='%0.2f')
+                    st.pyplot(fig)
+
+                with col2:
+                    st.dataframe(emoji_df)
+
+            except KeyError as e:
+                st.error(e)
+
+
+
+
+
 
         
         # Word To Find

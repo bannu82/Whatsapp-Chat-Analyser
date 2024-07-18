@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 from collections import Counter
 import pandas as pd 
+import emoji
+
 
 def find_stats(selected_user, df):
     if selected_user != 'Overall':
@@ -102,4 +104,13 @@ def get_data_by_clmn(selected_user , df , clmn , data):
             
     
             
-        
+def emoji_counter(selected_user, df):
+    if selected_user != 'Overall':
+        df = df[df['users']==selected_user]
+    emojis = []
+    
+    for message in df['messages']:
+        emojis.extend([c for c in message if c in emoji.EMOJI_DATA])
+    
+    emoji_df = pd.DataFrame(Counter(emojis).most_common(len(Counter(emojis))))
+    return emoji_df 
