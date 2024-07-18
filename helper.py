@@ -71,7 +71,7 @@ def most_common_words(selected_user , df):
             if word not in stop_words:
                 words.append(word)
 
-    return pd.DataFrame(Counter(words).most_common(30))    
+    return pd.DataFrame(Counter(words).most_common(20))    
 
 
 
