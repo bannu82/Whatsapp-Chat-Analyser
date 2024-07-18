@@ -80,7 +80,11 @@ if uploaded_file is not None:
 #               MOST COMMON WORD 
             try:
                 st.title('Most common word')
-                st.dataframe(helper.most_common_words(selected_user , df))
+                most_common_df = helper.most_common_words(selected_user , df)
+                fig , ax = plt.subplots()
+                ax.barh(most_common_df[0]  , most_common_df[1])
+                st.title('Most Common Words')
+                st.pyplot(fig)
             
             except KeyError as e:
                 st.error(e)                
