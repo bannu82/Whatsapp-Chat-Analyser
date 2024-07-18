@@ -81,7 +81,7 @@ if uploaded_file is not None:
             try:
                 st.title('Most Common Words')
                 most_common_df = helper.most_common_words(selected_user , df)
-                fig , ax = plt.subplots(figsize=(10, 5))
+                fig , ax = plt.subplots()
                 ax.barh(most_common_df[0]  , most_common_df[1])
                 st.pyplot(fig)
                 st.dataframe(most_common_df)
@@ -101,6 +101,7 @@ if uploaded_file is not None:
             #     st.error(e)
 
         
+        # Word To Find
         w = st.sidebar.text_input("Word to find message ")
 
         if st.sidebar.button('word to find'):
@@ -115,6 +116,8 @@ if uploaded_file is not None:
             except KeyError as e:
                 st.error(e)
         
+
+        # Find By Column
         clmn = df.columns.tolist()
 
         selected_clmn = st.sidebar.selectbox('select column',clmn)
