@@ -15,7 +15,7 @@ WhatsApp Chat Analyzer is a Streamlit application that provides detailed analysi
 
 ## Example
 
-![App Screenshot](images/img1.png)
+![App Screenshot](image/img1.png)
 
 
 ## Installation
