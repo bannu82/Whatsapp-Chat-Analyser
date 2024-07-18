@@ -117,4 +117,4 @@ if uploaded_file is not None:
 
         if st.sidebar.button('find'):
             st.dataframe(helper.get_data_by_clmn(selected_user , df , selected_clmn , selected_data))
-        st.sidebar.title('hllo')
+        
