@@ -13,6 +13,11 @@ WhatsApp Chat Analyzer is a Streamlit application that provides detailed analysi
 - **Percentage of Users**: Calculate the percentage contribution of each user in the chat.
 - **Group Chat Analysis**: Analyze group chats separately.
 
+## Example
+
+![App Screenshot](images/img1.png)
+
+
 ## Installation
 
 1. Clone the repository:
@@ -35,10 +40,6 @@ WhatsApp Chat Analyzer is a Streamlit application that provides detailed analysi
     ```
 3. Upload your exported WhatsApp chat file on the web interface.
 4. Explore the various analytics provided by the application.
-
-## Example
-
-![App Screenshot](screenshot.png)
 
 ## Contributing
 
