@@ -2,7 +2,8 @@ import streamlit as st
 import Preprocessor, helper
 import matplotlib.pyplot as plt
 
-# st.sidebar.title('WhatsApp Chat Analyzer')
+st.title('WhatsApp Chat Analyzer')
+
 
 uploaded_file = st.sidebar.file_uploader('Choose a file', type=['txt'])
 
@@ -11,7 +12,7 @@ if uploaded_file is not None:
     data = bytes_data.decode('utf-8')
     
     df = Preprocessor.preprocess(data)
-    st.title('WhatsApp Chat Analyzer')
+    
     st.dataframe(df)
 
     # Verify the DataFrame columns
