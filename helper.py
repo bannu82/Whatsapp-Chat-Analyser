@@ -121,7 +121,7 @@ def save_data_file(file_name , df):
     directory_path = 'Chats/'
 
     if os.path.exists(directory_path+re.sub('.txt', '.csv' ,file_name)):
-        return "allready exist"
+        return "allready exist" + os.curdir()
     else:
         if df.to_csv( directory_path + re.sub('.txt', '.csv' ,file_name) ):
             return "save file"
