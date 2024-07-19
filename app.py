@@ -1,6 +1,9 @@
 import streamlit as st
 import Preprocessor, helper
 import matplotlib.pyplot as plt
+import os
+import pandas as pd
+import re 
 
 st.title('WhatsApp Chat Analyzer')
 
@@ -11,9 +14,17 @@ if uploaded_file is not None:
     bytes_data = uploaded_file.getvalue()
     data = bytes_data.decode('utf-8')
     
+
+    
     df = Preprocessor.preprocess(data)
     
+
+    # Save Files 
+    helper.save_data_file(uploaded_file.name , df)
+    
+    
     st.dataframe(df)
+
 
     # Verify the DataFrame columns
     if 'messages' not in df.columns:

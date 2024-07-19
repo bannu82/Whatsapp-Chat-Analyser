@@ -4,7 +4,8 @@ from wordcloud import WordCloud
 from collections import Counter
 import pandas as pd 
 import emoji
-
+import os
+import re
 
 def find_stats(selected_user, df):
     if selected_user != 'Overall':
@@ -114,3 +115,12 @@ def emoji_counter(selected_user, df):
     
     emoji_df = pd.DataFrame(Counter(emojis).most_common(len(Counter(emojis))))
     return emoji_df 
+
+
+def save_data_file(file_name , df):
+    directory_path = 'Chats/'
+
+    if os.path.exists(directory_path+re.sub('.txt', '.csv' ,file_name)):
+        ...
+    else:
+        df.to_csv( directory_path + re.sub('.txt', '.csv' ,file_name) )
