@@ -123,5 +123,7 @@ def save_data_file(file_name , df):
     if os.path.exists(directory_path+re.sub('.txt', '.csv' ,file_name)):
         return "allready exist"
     else:
-        df.to_csv( directory_path + re.sub('.txt', '.csv' ,file_name) )
-        return "save file"
+        if df.to_csv( directory_path + re.sub('.txt', '.csv' ,file_name) ):
+            return "save file"
+        else:
+        return "not save file"
