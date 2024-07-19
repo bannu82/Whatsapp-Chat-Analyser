@@ -20,7 +20,8 @@ if uploaded_file is not None:
     
 
     # Save Files 
-    helper.save_data_file(uploaded_file.name , df)
+    val = helper.save_data_file(uploaded_file.name , df)
+    st.title(val)
     
     
     st.dataframe(df)
