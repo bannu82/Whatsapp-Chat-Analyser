@@ -4,7 +4,7 @@ WhatsApp Chat Analyzer is a Streamlit application that provides detailed analysi
 
 ## Link 
 
-Site Link : https://whatsapp-chat-analyser-wrts.onrender.com
+Site Link : https://whatsapp-chat-analyser-dh2znevjmqngbjyvzfc3m2.streamlit.app/
 
 ## Features
 
