@@ -7,16 +7,17 @@ import re
 
 st.set_page_config(layout='wide',initial_sidebar_state='expanded')
 st.sidebar.title('WhatsApp Chat Analyzer')
-st.title(':smirk: WhatsApp Chat Analyzer')
+
 
 uploaded_file = st.sidebar.file_uploader('Choose a file', type=['txt'])
 
 if uploaded_file is None:
     # Introduction
+    st.title(':smirk: WhatsApp Chat Analyzer')
     st.markdown(helper.desc())
 
 if uploaded_file is not None:
-
+    st.title('Top Statistic')
     bytes_data = uploaded_file.getvalue()
     data = bytes_data.decode('utf-8')
     df = Preprocessor.preprocess(data)

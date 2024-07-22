@@ -145,6 +145,11 @@ def emoji_counter(selected_user, df):
     emoji_df = pd.DataFrame(Counter(emojis).most_common(len(Counter(emojis))))
     return emoji_df 
 
+def monthly_timeline(selected_user , df):
+    if selected_user != 'Overall':
+        df = df[df['User']==selected_user]
+    
+
 
 # def save_data_file(file_name , df):
 #     directory_path = 'Chats/'
