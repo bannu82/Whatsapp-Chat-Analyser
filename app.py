@@ -5,9 +5,9 @@ import os
 import pandas as pd
 import re 
 
-st.set_page_config(layout='centered',initial_sidebar_state='expanded')
+st.set_page_config(layout='wide',initial_sidebar_state='expanded')
 st.sidebar.title('WhatsApp Chat Analyzer')
-
+st.title(':smirk: WhatsApp Chat Analyzer')
 
 uploaded_file = st.sidebar.file_uploader('Choose a file', type=['txt'])
 
@@ -27,9 +27,9 @@ if uploaded_file is not None:
 
     # # Save Files 
     # val = helper.save_data_file(uploaded_file.name , df)
-    # st.title(val)
     
-    st.dataframe(df)
+    
+    st.dataframe(df , use_container_width=True)
 
     # Verify the DataFrame columns
     if 'messages' not in df.columns:
@@ -58,16 +58,18 @@ if uploaded_file is not None:
 
             with cols2:
                 st.header('Total Words')
-                st.title(word)
+                st.title(f':green[{word}]')
 
             with cols3:
                 st.header('Media Shared')
-                st.title(num_media)
+                st.title(f':green[{num_media}]')
 
             with cols4:
                 st.header('Links Shared')
-                st.title(links)
+                st.title(f':green[{links}]')
 
+            st.divider()
+            # Most Busy User 
             if selected_user == 'Overall':
                 st.title('Most Busy Users')
                 x, df_busy = helper.most_busy_user(df)
@@ -82,7 +84,8 @@ if uploaded_file is not None:
 
                 with col2:
                     st.dataframe(df_busy)
-
+            
+            st.divider()
 
 #               WORD CLOUD
             try:
@@ -93,6 +96,7 @@ if uploaded_file is not None:
                 st.pyplot(fig)
             except KeyError as e:
                 st.error(e)
+            st.divider()
 
 #               MOST COMMON WORD 
             try:
@@ -106,7 +110,7 @@ if uploaded_file is not None:
             except KeyError as e:
                 st.error(e)                
 
-
+            st.divider()
             # Emoji Counter
             try:
                 st.title('Emoji Counter')

@@ -9,7 +9,6 @@ import re
 
 def desc():
     return """
-# :smirk: WhatsApp Chat Analyzer
 Welcome to the WhatsApp Chat Analyzer! This tool allows you to analyze your WhatsApp chat data and gain insights into your messaging patterns. :iphone: :speech_balloon:
 
 ## Features
