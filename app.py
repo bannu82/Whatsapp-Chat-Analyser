@@ -11,23 +11,18 @@ st.title(':smirk: WhatsApp Chat Analyzer')
 
 uploaded_file = st.sidebar.file_uploader('Choose a file', type=['txt'])
 
-
-
-# Title and Introduction
-
-
 if uploaded_file is None:
+    # Introduction
     st.markdown(helper.desc())
 
 if uploaded_file is not None:
+
     bytes_data = uploaded_file.getvalue()
     data = bytes_data.decode('utf-8')
-    
     df = Preprocessor.preprocess(data)
 
     # # Save Files 
     # val = helper.save_data_file(uploaded_file.name , df)
-    
     
     st.dataframe(df , use_container_width=True)
 
@@ -141,10 +136,8 @@ if uploaded_file is not None:
                 msg_df = helper.get_message(selected_user , df , w)
                 st.dataframe(msg_df)
 
-
             except KeyError as e:
                 st.error(e)
-        
 
         # # Find By Column
         # clmn = df.columns.tolist()
