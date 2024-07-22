@@ -5,7 +5,7 @@ import os
 import pandas as pd
 import re 
 
-st.set_page_config(layout='wide',initial_sidebar_state='expanded')
+st.set_page_config(layout='centered',initial_sidebar_state='expanded')
 st.sidebar.title('WhatsApp Chat Analyzer')
 
 
@@ -42,7 +42,6 @@ if uploaded_file is not None:
         user_list.insert(0, 'Overall')
 
         selected_user = st.sidebar.selectbox('Show analysis wrt', user_list)
-        
         
         show_analysis = st.sidebar.button('Show Analysis')
         hint = st.sidebar.success('Click "Show Analyis" Button')
