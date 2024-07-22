@@ -7,6 +7,36 @@ import emoji
 import os
 import re
 
+def desc():
+    return """
+# :smirk: WhatsApp Chat Analyzer
+Welcome to the WhatsApp Chat Analyzer! This tool allows you to analyze your WhatsApp chat data and gain insights into your messaging patterns. :iphone: :speech_balloon:
+
+## Features
+- **:incoming_envelope: Total Messages**: Get the total number of messages in the chat.
+- **:memo: Total Words**: Count the total number of words exchanged.
+- **:camera: Media Shared**: See the total number of media files shared.
+- **:link: Links Shared**: View the number of links shared in the chat.
+- **:busts_in_silhouette: Most Busy Users**: Identify the most active participants in the chat.
+- **:cloud: Word Cloud**: Visualize the most frequently used words.
+- **:speaking_head_in_silhouette: Most Common Words**: Find out the most common words used in the chat.
+- **:smiley: Emoji Counter**: Analyze the usage of emojis.
+- **:mag: Search Messages by Word**: Find messages containing a specific word.
+
+## How to Use
+1. **:file_folder: Upload Your Chat File**: Click on the "Choose a file" button in the sidebar to upload your WhatsApp chat file (in .txt format).
+2. **:bust_in_silhouette: Select User**: Choose a user from the dropdown to analyze the chat data for a specific participant or select "Overall" for all participants.
+3. **:bar_chart: Show Analysis**: Click the "Show Analysis" button to generate and view the statistics and visualizations.
+4. **:mag_right: Search for a Word**: Use the text input in the sidebar to search for messages containing a specific word.
+
+Upload your WhatsApp chat file and start exploring your chat data! :rocket:
+
+---
+
+### :octocat: Connect with Me
+For more projects and code, visit my [GitHub profile](https://github.com/bannu82).
+"""
+
 def find_stats(selected_user, df):
     if selected_user != 'Overall':
         df = df[df['users'] == selected_user]
@@ -91,16 +121,16 @@ def get_message(selected_user , df , word):
     
     return df1
 
-def get_data_by_clmn(selected_user , df , clmn , data):
-    if selected_user != 'Overall':
-        df = df[df['users']==selected_user]
+# def get_data_by_clmn(selected_user , df , clmn , data):
+#     if selected_user != 'Overall':
+#         df = df[df['users']==selected_user]
 
-    print(clmn)
-    if clmn == 'day' or 'hour' or 'minute' or 'year':
-        d = int(data)
-        return df[df[clmn]==d]  
-    elif clmn == 'users' or 'messages' :
-        return df[df[clmn]==str(data)]  
+#     print(clmn)
+#     if clmn == 'day' or 'hour' or 'minute' or 'year':
+#         d = int(data)
+#         return df[df[clmn]==d]  
+#     elif clmn == 'users' or 'messages' :
+#         return df[df[clmn]==str(data)]  
 
             
     
@@ -117,13 +147,13 @@ def emoji_counter(selected_user, df):
     return emoji_df 
 
 
-def save_data_file(file_name , df):
-    directory_path = 'Chats/'
+# def save_data_file(file_name , df):
+#     directory_path = 'Chats/'
 
-    if os.path.exists(directory_path+re.sub('.txt', '.csv' ,file_name)):
-        return "allready exist"
-    else:
-        if df.to_csv( directory_path + re.sub('.txt', '.csv' ,file_name) ):
-            return "save file"
-        else:
-            return directory_path + re.sub('.txt', '.csv' ,file_name)
+#     if os.path.exists(directory_path+re.sub('.txt', '.csv' ,file_name)):
+#         return "allready exist"
+#     else:
+#         if df.to_csv( directory_path + re.sub('.txt', '.csv' ,file_name) ):
+#             return "save file"
+#         else:
+#             return directory_path + re.sub('.txt', '.csv' ,file_name)

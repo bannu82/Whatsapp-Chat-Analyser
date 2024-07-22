@@ -5,27 +5,31 @@ import os
 import pandas as pd
 import re 
 
-st.title('WhatsApp Chat Analyzer')
+st.set_page_config(layout='wide',initial_sidebar_state='expanded')
+st.sidebar.title('WhatsApp Chat Analyzer')
 
 
 uploaded_file = st.sidebar.file_uploader('Choose a file', type=['txt'])
+
+
+
+# Title and Introduction
+
+
+if uploaded_file is None:
+    st.markdown(helper.desc())
 
 if uploaded_file is not None:
     bytes_data = uploaded_file.getvalue()
     data = bytes_data.decode('utf-8')
     
-
-    
     df = Preprocessor.preprocess(data)
-    
 
-    # Save Files 
-    val = helper.save_data_file(uploaded_file.name , df)
-    st.title(val)
-    
+    # # Save Files 
+    # val = helper.save_data_file(uploaded_file.name , df)
+    # st.title(val)
     
     st.dataframe(df)
-
 
     # Verify the DataFrame columns
     if 'messages' not in df.columns:
@@ -39,17 +43,18 @@ if uploaded_file is not None:
 
         selected_user = st.sidebar.selectbox('Show analysis wrt', user_list)
         
-
-
+        show_analysis = st.sidebar.button('Show Analysis')
+        hint = st.sidebar.success('Click "Show Analyis" Button')
         
-        if st.sidebar.button('Show Analysis'):
+        if show_analysis:
+            hint.empty()
             cols1, cols2, cols3, cols4 = st.columns(4)
 
             no_msg, word, num_media, links = helper.find_stats(selected_user, df)
 
             with cols1:
                 st.header('Total Messages')
-                st.title(no_msg)
+                st.title(f':green[{no_msg}]')
 
             with cols2:
                 st.header('Total Words')
@@ -122,6 +127,7 @@ if uploaded_file is not None:
 
 
 
+        st.sidebar.divider()
 
 
         
@@ -141,13 +147,13 @@ if uploaded_file is not None:
                 st.error(e)
         
 
-        # Find By Column
-        clmn = df.columns.tolist()
+        # # Find By Column
+        # clmn = df.columns.tolist()
 
-        selected_clmn = st.sidebar.selectbox('select column',clmn)
-        if selected_clmn:
-            selected_data = st.sidebar.text_input('Enter ')
+        # selected_clmn = st.sidebar.selectbox('select column',clmn)
+        # if selected_clmn:
+        #     selected_data = st.sidebar.text_input('Enter ')
 
-        if st.sidebar.button('find'):
-            st.dataframe(helper.get_data_by_clmn(selected_user , df , selected_clmn , selected_data))
+        # if st.sidebar.button('find'):
+        #     st.dataframe(helper.get_data_by_clmn(selected_user , df , selected_clmn , selected_data))
         
