@@ -133,10 +133,10 @@ if uploaded_file is not None:
         # Word To Find
         w = st.sidebar.text_input("Word to find message ")
 
-        if st.sidebar.button('word to find'):
+        if st.sidebar.button('Word to find'):
              
             try:
-                st.title('word in msgs')
+                st.title('Word in Messages')
                 
                 msg_df = helper.get_message(selected_user , df , w)
                 st.dataframe(msg_df)
