@@ -124,12 +124,7 @@ if uploaded_file is not None:
             except KeyError as e:
                 st.error(e)
 
-
-
-
         st.sidebar.divider()
-
-
         
         # Word To Find
         w = st.sidebar.text_input("Word to find message ")
