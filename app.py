@@ -86,7 +86,7 @@ if uploaded_file is not None:
 
                 with col1:
                     # st.bar_chart(df_busy, x='name' , y='percent' ,color=[cyan_color] ,height=400 ,width=700   ) 
-                    st.bar_chart(x , y='count',y_label='Message Count',x_label='Users' ,color=[cyan_color] ,height=400 ,width=700   ) 
+                    st.bar_chart(x , y='count' ,color=[cyan_color] ,height=400 ,width=700   ) 
                     
                 with col2:
                     st.dataframe(df_busy)
