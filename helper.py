@@ -72,8 +72,8 @@ def create_cloud(selected_user, df):
         df = df[df['users'] == selected_user]        
 
     df = df[df['users'] != 'Other Notification']
-    df = df[df['messages']!='<Media omitted>']
-    df = df[df['messages']!='']
+    df = df[df['messages'] != '<Media omitted>']
+    df = df[df['messages'] != '']
 
     # Check if 'messages' column exists
     if 'messages' not in df.columns:
@@ -92,8 +92,8 @@ def most_common_words(selected_user , df):
         df = df[df['users'] == selected_user]
         
     df = df[df['users'] != 'Other Notification']
-    df = df[df['messages']!='<Media omitted>']
-    df = df[df['messages']!='']
+    df = df[df['messages'] != '<Media omitted>']
+    df = df[df['messages'] != '']
 
     words = []
 
@@ -110,11 +110,7 @@ def most_common_words(selected_user , df):
         words_list.append(words_count[i][0])
         count_list.append(words_count[i][1])
 
-    data = pd.DataFrame({'Words':words_list , 'Counts':count_list})
-    
-
-
-    # return pd.DataFrame(Counter(words).most_common(10))    
+    data = pd.DataFrame({'Words': words_list, 'Counts': count_list})
     return data
 
 
@@ -130,21 +126,10 @@ def get_message(selected_user , df , word):
     
     return df1
 
-# def get_data_by_clmn(selected_user , df , clmn , data):
-#     if selected_user != 'Overall':
-#         df = df[df['users']==selected_user]
 
-#     print(clmn)
-#     if clmn == 'day' or 'hour' or 'minute' or 'year':
-#         d = int(data)
-#         return df[df[clmn]==d]  
-#     elif clmn == 'users' or 'messages' :
-#         return df[df[clmn]==str(data)]  
-
-                
 def emoji_counter(selected_user, df):
     if selected_user != 'Overall':
-        df = df[df['users']==selected_user]
+        df = df[df['users'] == selected_user]
     emojis = []
     
     for message in df['messages']:
@@ -155,7 +140,7 @@ def emoji_counter(selected_user, df):
 
 def monthly_timeline(selected_user , df):
     if selected_user != 'Overall':
-        df = df[df['User']==selected_user]
+        df = df[df['users'] == selected_user]
     timeline = df.groupby(['year' , 'month_num' ,'month']).count()['messages'].reset_index()
     
     time = []
@@ -166,15 +151,3 @@ def monthly_timeline(selected_user , df):
     timeline['time'] = time 
     
     return timeline
-    
-
-# def save_data_file(file_name , df):
-#     directory_path = 'Chats/'
-
-#     if os.path.exists(directory_path+re.sub('.txt', '.csv' ,file_name)):
-#         return "allready exist"
-#     else:
-#         if df.to_csv( directory_path + re.sub('.txt', '.csv' ,file_name) ):
-#             return "save file"
-#         else:
-#             return directory_path + re.sub('.txt', '.csv' ,file_name)
