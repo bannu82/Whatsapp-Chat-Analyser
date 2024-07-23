@@ -8,6 +8,8 @@ import re
 st.set_page_config(layout='wide',initial_sidebar_state='expanded')
 st.sidebar.title('WhatsApp Chat Analyzer')
 
+red_color ="#ff4d4d"
+cyan_color ="#33ffbb"
 
 uploaded_file = st.sidebar.file_uploader('Choose a file', type=['txt'])
 
@@ -17,7 +19,6 @@ if uploaded_file is None:
     st.markdown(helper.desc())
 
 if uploaded_file is not None:
-    st.title('Top Statistic')
     bytes_data = uploaded_file.getvalue()
     data = bytes_data.decode('utf-8')
     df = Preprocessor.preprocess(data)
@@ -25,12 +26,13 @@ if uploaded_file is not None:
     # # Save Files 
     # val = helper.save_data_file(uploaded_file.name , df)
     
-    st.dataframe(df , use_container_width=True)
+    # st.dataframe(df , use_container_width=True)
 
     # Verify the DataFrame columns
     if 'messages' not in df.columns:
         st.error("The 'messages' column is missing in the DataFrame.")
     else:
+
         # FETCH USERS
         user_list = df['users'].unique().tolist()
         user_list.remove('Other Notification')
@@ -43,9 +45,11 @@ if uploaded_file is not None:
         hint = st.sidebar.success('Click "Show Analyis" Button')
         
         if show_analysis:
+            st.title('Top Statistic')
             hint.empty()
-            cols1, cols2, cols3, cols4 = st.columns(4)
 
+            cols1, cols2, cols3, cols4 = st.columns(4)
+            # Fetching Sats 
             no_msg, word, num_media, links = helper.find_stats(selected_user, df)
 
             with cols1:
@@ -65,23 +69,44 @@ if uploaded_file is not None:
                 st.title(f':green[{links}]')
 
             st.divider()
+
+            # Monthly Timeline 
+            st.title("Monthly Timeline")
+            timeline =helper.monthly_timeline(selected_user=selected_user , df=df)
+            st.line_chart(timeline , x='time' , y='messages' , height=500 , use_container_width=True , color=[cyan_color])
+
+            st.divider()
+
+            
             # Most Busy User 
             if selected_user == 'Overall':
                 st.title('Most Busy Users')
                 x, df_busy = helper.most_busy_user(df)
-                fig, ax = plt.subplots()
-
                 col1, col2 = st.columns(2)
 
                 with col1:
-                    ax.bar(x.index, x.values)
-                    plt.xticks(rotation='vertical')
-                    st.pyplot(fig)
-
+                    # st.bar_chart(df_busy, x='name' , y='percent' ,color=[cyan_color] ,height=400 ,width=700   ) 
+                    st.bar_chart(x , y='count',y_label='Message Count',x_label='Users' ,color=[cyan_color] ,height=400 ,width=700   ) 
+                    
                 with col2:
                     st.dataframe(df_busy)
             
             st.divider()
+
+#               MOST COMMON WORD 
+            try:
+                st.title('Most Common Words')
+                most_common_df = helper.most_common_words(selected_user , df)
+                # fig , ax = plt.subplots()
+                # ax.barh(most_common_df[0]  , most_common_df[1])
+                # st.pyplot(fig)
+                
+                st.bar_chart(most_common_df , x='Words' ,y='Counts' , color=[cyan_color] ,height=500 , use_container_width=True)
+            
+            except KeyError as e:
+                st.error(e)                
+            st.divider()
+            
 
 #               WORD CLOUD
             try:
@@ -94,19 +119,7 @@ if uploaded_file is not None:
                 st.error(e)
             st.divider()
 
-#               MOST COMMON WORD 
-            try:
-                st.title('Most Common Words')
-                most_common_df = helper.most_common_words(selected_user , df)
-                fig , ax = plt.subplots()
-                ax.barh(most_common_df[0]  , most_common_df[1])
-                st.pyplot(fig)
-                # st.dataframe(most_common_df)
-            
-            except KeyError as e:
-                st.error(e)                
 
-            st.divider()
             # Emoji Counter
             try:
                 st.title('Emoji Counter')

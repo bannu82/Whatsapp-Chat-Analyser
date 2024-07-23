@@ -60,20 +60,20 @@ def find_stats(selected_user, df):
 
     return num_messages, len(words), num_media_message, len(links)
 
+
 def most_busy_user(df):
     x = df['users'].value_counts().head(5)
     df = round((df['users'].value_counts() / df.shape[0]) * 100, 2).reset_index().rename(columns={'users': 'name', 'count': 'percent'})
     return x, df
 
+
 def create_cloud(selected_user, df):
     if selected_user != 'Overall':
-        df = df[df['users'] == selected_user]
-        
+        df = df[df['users'] == selected_user]        
 
     df = df[df['users'] != 'Other Notification']
     df = df[df['messages']!='<Media omitted>']
     df = df[df['messages']!='']
-
 
     # Check if 'messages' column exists
     if 'messages' not in df.columns:
@@ -83,6 +83,7 @@ def create_cloud(selected_user, df):
     df_wc = wc.generate(df['messages'].str.cat(sep=" "))
     return df_wc
 
+
 def most_common_words(selected_user , df):
     f = open('stop_hinglish.txt' , 'r')
     stop_words = f.read()
@@ -90,11 +91,9 @@ def most_common_words(selected_user , df):
     if selected_user != 'Overall':
         df = df[df['users'] == selected_user]
         
-
     df = df[df['users'] != 'Other Notification']
     df = df[df['messages']!='<Media omitted>']
     df = df[df['messages']!='']
-
 
     words = []
 
@@ -103,9 +102,20 @@ def most_common_words(selected_user , df):
             if word not in stop_words:
                 words.append(word)
 
-    return pd.DataFrame(Counter(words).most_common(20))    
+    words_count = Counter(words).most_common(10)
+
+    words_list = []
+    count_list =[]
+    for i in range(len(words_count)) :
+        words_list.append(words_count[i][0])
+        count_list.append(words_count[i][1])
+
+    data = pd.DataFrame({'Words':words_list , 'Counts':count_list})
+    
 
 
+    # return pd.DataFrame(Counter(words).most_common(10))    
+    return data
 
 
 def get_message(selected_user , df , word):
@@ -131,9 +141,7 @@ def get_message(selected_user , df , word):
 #     elif clmn == 'users' or 'messages' :
 #         return df[df[clmn]==str(data)]  
 
-            
-    
-            
+                
 def emoji_counter(selected_user, df):
     if selected_user != 'Overall':
         df = df[df['users']==selected_user]
@@ -148,8 +156,17 @@ def emoji_counter(selected_user, df):
 def monthly_timeline(selected_user , df):
     if selected_user != 'Overall':
         df = df[df['User']==selected_user]
+    timeline = df.groupby(['year' , 'month_num' ,'month']).count()['messages'].reset_index()
     
-
+    time = []
+    
+    for i in range(timeline.shape[0]):
+        time.append(timeline['month'][i] + "-" + str(timeline['year'][i]))
+    
+    timeline['time'] = time 
+    
+    return timeline
+    
 
 # def save_data_file(file_name , df):
 #     directory_path = 'Chats/'
