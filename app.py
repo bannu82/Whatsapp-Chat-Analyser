@@ -77,7 +77,6 @@ if uploaded_file is not None:
             st.divider()
 
             # Daily Timeline 
-
             st.title('Daily Timeline')
             daily_time_line = helper.daily_timeline(selected_user , df)
             st.bar_chart(daily_time_line , y='messages' , x='only_date' , color=[cyan_color],use_container_width=True , height=500)
@@ -87,7 +86,6 @@ if uploaded_file is not None:
             st.title('Week Activity Map')
             week_activity_df = helper.week_activity_map(selected_user , df)
             st.bar_chart(week_activity_df , x='day_name' , color =[cyan_color],use_container_width=True ,height=500)
-            st.divider()
             
             # Most Busy User 
             if selected_user == 'Overall':
