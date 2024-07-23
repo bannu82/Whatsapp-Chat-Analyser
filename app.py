@@ -75,11 +75,17 @@ if uploaded_file is not None:
             timeline =helper.monthly_timeline(selected_user=selected_user , df=df)
             st.line_chart(timeline , x='time' , y='messages' , height=500 , use_container_width=True , color=[cyan_color])
 
-            st.divider()
+            # Daily Timeline 
+
+            st.title('Daily Timeline')
+            daily_time_line = helper.daily_timeline(selected_user , df)
+            st.bar_chart(daily_time_line , y='messages' , x='only_date' , color=[cyan_color],use_container_width=True , height=500)
 
             
             # Most Busy User 
             if selected_user == 'Overall':
+                st.divider()
+
                 st.title('Most Busy Users')
                 x, df_busy = helper.most_busy_user(df)
                 col1, col2 = st.columns(2)
@@ -135,7 +141,7 @@ if uploaded_file is not None:
                     st.dataframe(emoji_df)
 
             except KeyError as e:
-                st.error(e)
+                st.error("Emojis not Found")
 
         st.sidebar.divider()
         
