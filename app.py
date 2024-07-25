@@ -82,34 +82,25 @@ if uploaded_file is not None:
             st.bar_chart(daily_time_line , y='messages' , x='only_date' , color=[cyan_color],use_container_width=True , height=500)
             st.divider()
 
-        
             # Activity Map 
-
+            st.title('Week Activity Map')
+            week_activity_df = helper.week_activity_map(selected_user , df)
+            st.bar_chart(week_activity_df , x='day_name' , color =[cyan_color],use_container_width=True ,height=500)
+            
+            # Most Busy User 
             if selected_user == 'Overall':
-                
                 st.divider()
 
-                st.title('Activity Map')
+                st.title('Most Busy Users')
                 x, df_busy = helper.most_busy_user(df)
-                col1, col2 , col3 = st.columns(3)
+                col1, col2 = st.columns(2)
 
                 with col1:
-                    st.header('Weekly Activity')
-                    week_activity_df = helper.week_activity_map(selected_user , df)
-                    st.bar_chart(week_activity_df , x='day_name' , color =[cyan_color],use_container_width=True ,height=500)
-            
-                    
-                with col2:
-                    
-                    st.header('Most Busy Users')
                     # st.bar_chart(df_busy, x='name' , y='percent' ,color=[cyan_color] ,height=400 ,width=700   ) 
                     st.bar_chart(x , y='count' ,color=[cyan_color] ,height=400 ,width=700   ) 
-
-                with col3:
-                    st.header('Percentage of conversation')
-                    st.dataframe(df_busy)
                     
-
+                with col2:
+                    st.dataframe(df_busy)
             
             st.divider()
 
